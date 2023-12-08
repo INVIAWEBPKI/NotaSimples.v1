@@ -525,7 +525,7 @@ class _CadastroClientesState extends State<CadastroClientes> {
                     isJuridica
                         ? TextFormField(
                             validator: (value) {
-                              if (value!.length == 11) {
+                              if (value!.length == 13) {
                                 return "Inscrição Municipal incorreta";
                               } else if (value == "") {
                                 return "Digite a Inscrição Municipal";
@@ -539,7 +539,7 @@ class _CadastroClientesState extends State<CadastroClientes> {
                                 labelText: "Inscrição Municipal"),
                             inputFormatters: [
                               MuskeyFormatter(
-                                masks: ["###/#######"],
+                                masks: ["###/########"],
                                 decorators: ['/'],
                                 overflow: OverflowBehavior(
                                   allowed: false,

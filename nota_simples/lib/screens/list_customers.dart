@@ -1,5 +1,6 @@
 import 'dart:convert';
 //import 'package:abo_rs/screens/cadastro_clientes.dart';
+import 'package:animated_floating_buttons/widgets/animated_floating_action_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 //import "package:abo_rs/Utils/constants.dart";
@@ -18,6 +19,31 @@ class Clientes extends StatefulWidget {
 }
 
 class _ClientesState extends State<Clientes> {
+  Widget float1() {
+    return Container(
+      child: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (_) => const CadastroClientes()));
+        },
+        heroTag: "btn1",
+        tooltip: 'First button',
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+
+  Widget float2() {
+    return Container(
+      child: const FloatingActionButton(
+        onPressed: null,
+        heroTag: "btn2",
+        tooltip: 'Second button',
+        child: Icon(Icons.edit),
+      ),
+    );
+  }
+
   //CONTROLLER DO ENDEREÇO
   final TextEditingController _userIdController = TextEditingController();
   final TextEditingController _cepController = TextEditingController();
@@ -65,9 +91,10 @@ class _ClientesState extends State<Clientes> {
         debugPrint(results[0]["cli_id"].toString());
         EasyLoading.dismiss();
       });
+      debugPrint(resposta["RazaoSocialTomador"]);
       debugPrint("Length ${results.length}");
-      debugPrint("recuperar ${recuperarDados()}");
-      debugPrint("user_ID $_userId");
+      //debugPrint("recuperar ${recuperarDados()}");
+      //debugPrint("user_ID $_userId");
     } else {
       debugPrint("NÃO SUCESSO");
     }
@@ -79,7 +106,7 @@ class _ClientesState extends State<Clientes> {
     setState(() {
       _userId = prefs.getString("UserId");
     });
-    debugPrint("Shared $_userId");
+    //debugPrint("Shared $_userId");
   }
 
   @override
@@ -126,14 +153,26 @@ class _ClientesState extends State<Clientes> {
             return const Divider();
           },
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: AnimatedFloatingActionButton(
+              //Fab list
+              fabButtons: <Widget>[float1(), float2()],
+              //key : key,
+              colorStartAnimation: const Color.fromARGB(255, 177, 132, 37),
+              colorEndAnimation: Colors.red,
+              animatedIconData: AnimatedIcons.menu_close //To principal button
+              ),
+        ),
+
+        /*floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (_) => const CadastroClientes()));
           },
-        ),
-        bottomNavigationBar: BottomAppBar(child: Container(height: 50.0)),
+        ),*/
+        //bottomNavigationBar: BottomAppBar(child: Container(height: 50.0)),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:nota_simples/screens/homePage.dart';
+import 'package:nota_simples/widgets/admob.dart';
 import 'cadastrar_servico.dart';
 import 'cadastro_clientes.dart';
 import 'list_customers.dart';
@@ -176,6 +177,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 24),
+            //PROPAGANDA
+            const Admobwidget(),
             GestureDetector(
               /*onTap: () {
               Navigator.of(context).push(
@@ -229,6 +232,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 24),
+            const Admobwidget(),
             GestureDetector(
               onTap: () {
                 Navigator.push(context,

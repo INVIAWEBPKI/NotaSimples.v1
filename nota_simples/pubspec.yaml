@@ -47,6 +47,8 @@ dependencies:
   badges: ^3.1.2
   sqflite: ^2.2.6
   flutter_advanced_drawer: ^1.3.5
+  google_mobile_ads: ^4.0.0
+  animated_floating_buttons: ^0.0.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -76,6 +78,7 @@ flutter:
     - images/emitir_nfe.png
     - images/cliente.png
     - images/mulher.png
+    - images/logoinvia.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
