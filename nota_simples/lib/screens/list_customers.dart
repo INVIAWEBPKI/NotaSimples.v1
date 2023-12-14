@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:nota_simples/screens/change_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cadastro_clientes.dart';
@@ -19,28 +20,31 @@ class Clientes extends StatefulWidget {
 }
 
 class _ClientesState extends State<Clientes> {
+  //MENU DE BOTÕES
   Widget float1() {
-    return Container(
-      child: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (_) => const CadastroClientes()));
-        },
-        heroTag: "btn1",
-        tooltip: 'First button',
-        child: const Icon(Icons.add),
-      ),
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (_) => const CadastroClientes()));
+      },
+      heroTag: "btn1",
+      tooltip: 'First button',
+      child: const Icon(Icons.add),
     );
   }
 
-  Widget float2() {
-    return Container(
-      child: const FloatingActionButton(
-        onPressed: null,
-        heroTag: "btn2",
-        tooltip: 'Second button',
-        child: Icon(Icons.edit),
-      ),
+  Widget floatEdit() {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) =>
+                    recuperacaoSenha(senha: 'senha', usuario: 'usuario')));
+      },
+      heroTag: "btn2",
+      tooltip: 'Second button',
+      child: const Icon(Icons.edit),
     );
   }
 
@@ -85,14 +89,16 @@ class _ClientesState extends State<Clientes> {
 
     //final responseB = await response.body.readAsString();
     Map<String, dynamic> resposta = json.decode(response.body);
+
     if (resposta["StatusCode"] == "200") {
       setState(() {
         results = resposta["Results"];
         debugPrint(results[0]["cli_id"].toString());
+        debugPrint("recuperar ${recuperarDados()}");
         EasyLoading.dismiss();
       });
       debugPrint(resposta["RazaoSocialTomador"]);
-      debugPrint("Length ${results.length}");
+      //debugPrint("Length ${results.length}");
       //debugPrint("recuperar ${recuperarDados()}");
       //debugPrint("user_ID $_userId");
     } else {
@@ -157,7 +163,7 @@ class _ClientesState extends State<Clientes> {
           padding: const EdgeInsets.all(16.0),
           child: AnimatedFloatingActionButton(
               //Fab list
-              fabButtons: <Widget>[float1(), float2()],
+              fabButtons: <Widget>[float1(), floatEdit()],
               //key : key,
               colorStartAnimation: const Color.fromARGB(255, 177, 132, 37),
               colorEndAnimation: Colors.red,

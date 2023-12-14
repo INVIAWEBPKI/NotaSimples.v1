@@ -32,8 +32,8 @@ class _CadastroClientesState extends State<CadastroClientes> {
   final TextEditingController _cpfTomador = TextEditingController();
   final TextEditingController _cnpjTomador = TextEditingController();
   final TextEditingController _municipal = TextEditingController();
-  final TextEditingController _razaoSocial = TextEditingController();
   final TextEditingController _nomeTomador = TextEditingController();
+  //final TextEditingController _nomeTomador = TextEditingController();
   final TextEditingController _estadual = TextEditingController();
   final TextEditingController _numero = TextEditingController();
   final TextEditingController _ddd = TextEditingController();
@@ -65,7 +65,7 @@ class _CadastroClientesState extends State<CadastroClientes> {
       "apiPassword": "4pZqfXa3r88SW3aPr",
       "user_id": _userId,
       "CpfCnpjTomador": cnpjTomador4,
-      "RazaoSocialTomador": _razaoSocial.text,
+      "RazaoSocialTomador": _nomeTomador.text,
       "InscricaoEstadualTomador": _estadual.text,
       "InscricaoMunicipalTomador": _municipal.text,
       "TipoLogradouroTomador": "",
@@ -365,7 +365,7 @@ class _CadastroClientesState extends State<CadastroClientes> {
                           Icons.arrow_drop_down,
                         ),
                         iconSize: 14,
-                        iconEnabledColor: Colors.yellow,
+                        iconEnabledColor: Colors.black,
                         iconDisabledColor: Colors.grey,
                       ),
                       dropdownStyleData: DropdownStyleData(
@@ -567,7 +567,7 @@ class _CadastroClientesState extends State<CadastroClientes> {
                       maxLength: 2,
                       decoration: const InputDecoration(
                           labelText: "DDD", hintText: "DDD"),
-                      inputFormatters: [
+                      inputFormatters: const [
                         /*MuskeyFormatter(
                           //masks: ["(##)"],
                           //decorators: [')'],
@@ -637,8 +637,9 @@ class _CadastroClientesState extends State<CadastroClientes> {
                           _recuperarCep();
                         },
                         style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 3, 63, 119)),
+                            /*backgroundColor:
+                                const Color.fromARGB(255, 3, 63, 119)*/
+                            ),
                         child: const Text("Procurar CEP")),
 
                     TextFormField(

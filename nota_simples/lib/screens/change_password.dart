@@ -79,8 +79,9 @@ class _recuperacaoSenhaState extends State<recuperacaoSenha> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 231, 218, 170),
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          backgroundColor: Colors.orange,
           title: const Text("Recuperação de Senha"),
           //backgroundColor: corPrincipal,
         ),
