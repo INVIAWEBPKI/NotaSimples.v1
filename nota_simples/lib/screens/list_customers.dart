@@ -153,7 +153,9 @@ class _ClientesState extends State<Clientes> {
             Expanded(
               flex: 1,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  //BOTÃO A-Z
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
@@ -166,16 +168,26 @@ class _ClientesState extends State<Clientes> {
                         });
                       },
                       child: const Text("A-Z")),
+                  const Padding(padding: EdgeInsets.all(10)),
+                  //BOTÃO Z-A
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
                           results!.sort((a1, b2) => b2["RazaoSocialTomador"]
                               .toString()
                               .toLowerCase()
-                              .compareTo(b2));
+                              .compareTo(b2["RazaoSocialTomador"]
+                                  .toString()
+                                  .toLowerCase()));
                         });
                       },
-                      child: const Text("Z-A"))
+                      child: const Text("Z-A")),
+                  FloatingActionButton(
+                    onPressed: () {
+                      showSearch(context: context, delegate: CustomSearch());
+                    },
+                    child: const Icon(Icons.search),
+                  )
                 ],
               ),
             ),
@@ -232,5 +244,44 @@ class _ClientesState extends State<Clientes> {
         ),*/
         //bottomNavigationBar: BottomAppBar(child: Container(height: 50.0)),
         floatingActionButtonLocation: FloatingActionButtonLocation.endDocked);
+  }
+}
+
+class CustomSearch extends SearchDelegate {
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.clear),
+      )
+    ];
+  }
+
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: const Icon(Icons.arrow_back));
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+
+    for(var in var) {
+      if()
+    }
+
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    // TODO: implement buildSuggestions
+    throw UnimplementedError();
   }
 }
