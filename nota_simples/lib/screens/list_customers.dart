@@ -20,8 +20,33 @@ class Clientes extends StatefulWidget {
 }
 
 class _ClientesState extends State<Clientes> {
+  bool isSorted = false;
+  //final TextEditingController _telefoneController = TextEditingController();
+  List<dynamic>? results;
+
+  final TextEditingController _cepController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _cliIdController = TextEditingController();
+  final TextEditingController _coddefinido = TextEditingController();
+  final TextEditingController _ibgeController = TextEditingController();
+  final TextEditingController _logController = TextEditingController();
+  final TextEditingController _neighborhoodController = TextEditingController();
+  final TextEditingController _paisdefinido = TextEditingController();
+  final TextEditingController _stateController = TextEditingController();
+  String? _userId = "7";
+  //CONTROLLER DO ENDEREÇO
+  final TextEditingController _userIdController = TextEditingController();
+
+  @override
+  void initState() {
+    _recuperar();
+    recuperarDados();
+
+    super.initState();
+  }
+
   //MENU DE BOTÕES
-  Widget float1() {
+  Widget floatRegister() {
     return FloatingActionButton(
       onPressed: () {
         Navigator.push(context,
@@ -48,20 +73,14 @@ class _ClientesState extends State<Clientes> {
     );
   }
 
-  //CONTROLLER DO ENDEREÇO
-  final TextEditingController _userIdController = TextEditingController();
-  final TextEditingController _cepController = TextEditingController();
-  final TextEditingController _logController = TextEditingController();
-  final TextEditingController _stateController = TextEditingController();
-  final TextEditingController _neighborhoodController = TextEditingController();
-  final TextEditingController _cityController = TextEditingController();
-  final TextEditingController _ibgeController = TextEditingController();
-  final TextEditingController _paisdefinido = TextEditingController();
-  final TextEditingController _coddefinido = TextEditingController();
-  final TextEditingController _cliIdController = TextEditingController();
-  //final TextEditingController _telefoneController = TextEditingController();
-  var results = [];
-  String? _userId = '';
+  /*sort() {
+    if (!isSorted) {
+      results!
+          .sort((a, b) => a.RazaoSocialTomador.compareTo(b.RazaoSocialTomador));
+    } else {
+      results = results!.reversed.toList();
+    }
+  }*/
 
   Future<void> recuperarDados() async {
     //ENDPOINT
@@ -93,11 +112,11 @@ class _ClientesState extends State<Clientes> {
     if (resposta["StatusCode"] == "200") {
       setState(() {
         results = resposta["Results"];
-        debugPrint(results[0]["cli_id"].toString());
-        debugPrint("recuperar ${recuperarDados()}");
-        EasyLoading.dismiss();
+        debugPrint(results?[0]["User_id"].toString());
+        //debugPrint("recuperar ${recuperarDados()}");
+        //EasyLoading.dismiss();
       });
-      debugPrint(resposta["RazaoSocialTomador"]);
+      //debugPrint(resposta["RazaoSocialTomador"]);
       //debugPrint("Length ${results.length}");
       //debugPrint("recuperar ${recuperarDados()}");
       //debugPrint("user_ID $_userId");
@@ -116,54 +135,87 @@ class _ClientesState extends State<Clientes> {
   }
 
   @override
-  void initState() {
-    _recuperar();
-    recuperarDados();
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Clientes"),
           backgroundColor: Colors.orange,
+          /*actions: [
+            IconButton(
+              onPressed: () => sort(),
+              icon: const Icon(Icons.swap_vert_circle),
+            )
+          ],*/
           //backgroundColor: corPrincipal,
         ),
-        body: ListView.separated(
-          itemCount: results.length,
-          itemBuilder: (BuildContext context, int index) {
-            //String cpfCnpj = results![index]["CpfCnpjTomador"];
-            //VERIFICANDO SE RESULTS É NULO
-            //SE FOR NULO
-            if (results[index]["TelefoneTomador"] == null) {
-              return Container();
-            }
+        body: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Row(
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          results!.sort((a, b) => a["RazaoSocialTomador"]
+                              .toString()
+                              .toLowerCase()
+                              .compareTo(b["RazaoSocialTomador"]
+                                  .toString()
+                                  .toLowerCase()));
+                        });
+                      },
+                      child: const Text("A-Z")),
+                  ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          results!.sort((a1, b2) => b2["RazaoSocialTomador"]
+                              .toString()
+                              .toLowerCase()
+                              .compareTo(b2));
+                        });
+                      },
+                      child: const Text("Z-A"))
+                ],
+              ),
+            ),
+            results != null
+                ? Expanded(
+                    flex: 9,
+                    child: ListView.separated(
+                      itemCount: results!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        //String cpfCnpj = results![index]["CpfCnpjTomador"];
+                        //VERIFICANDO SE RESULTS É NULO
+                        //SE FOR NULO
 
-            return ListTile(
-              leading: badges.Badge(
-                badgeContent: Text(results[index]["cli_id"]),
-                child: Image.asset("images/mulher.png"),
-              ) /*Image.asset("images/mulher.png")*/,
-              title: /*Text(results[index]["DDDTomador"] +
-                        results[index]["TelefoneTomador"]),*/
-                  Text(results[index]["RazaoSocialTomador"] +
-                      "\n" +
-                      results[index]["CpfCnpjTomador"] +
-                      "\n" +
-                      results[index]["DescricaoCidadeTomador"]),
-            );
-          },
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider();
-          },
+                        return ListTile(
+                          leading: badges.Badge(
+                            badgeContent: Text(results![index]["cli_id"]),
+                            child: Image.asset("images/mulher.png"),
+                          ) /*Image.asset("images/mulher.png")*/,
+                          title: /*Text(results[index]["DDDTomador"] +
+                          results[index]["TelefoneTomador"]),*/
+                              Text(results![index]["RazaoSocialTomador"] +
+                                  "\n" +
+                                  results![index]["CpfCnpjTomador"] +
+                                  "\n" +
+                                  results![index]["DescricaoCidadeTomador"]),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider();
+                      },
+                    ),
+                  )
+                : Container(),
+          ],
         ),
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(16.0),
           child: AnimatedFloatingActionButton(
               //Fab list
-              fabButtons: <Widget>[float1(), floatEdit()],
+              fabButtons: <Widget>[floatRegister(), floatEdit()],
               //key : key,
               colorStartAnimation: const Color.fromARGB(255, 177, 132, 37),
               colorEndAnimation: Colors.red,

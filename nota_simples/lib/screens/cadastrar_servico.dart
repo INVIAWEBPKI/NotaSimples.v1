@@ -28,14 +28,16 @@ class _ValoresState extends State<Valores> {
     'MEI - Simples Nacional',
     'ME EPP- Simples Nacional'
   ];
+
   String? selectedValue;
+  String? selectedValue2;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Serviço"),
-          backgroundColor: Colors.orange,
+          backgroundColor: Color.fromARGB(255, 50, 201, 63),
         ),
         body: SingleChildScrollView(
             padding: const EdgeInsets.all(32),
@@ -98,14 +100,14 @@ class _ValoresState extends State<Valores> {
                           .toList(),
 
                       //DEFINE A OPÇÃO SELECIONADA
-                      value: selectedValue,
+                      value: selectedValue2,
                       //ONCHANGED É UM CALLBACK QUE É ACIONADO QUANDO A OPÇÃO DO DROPDOWN É SELECIONADA
                       onChanged: (String? value) {
                         if (value == 'Tributação no município') {
                         } else {}
                         //SETSTATE É PARA ATUALIZAR O ESTADO DO WIDGET ATUAL E RECONSTRUÍ-LO
                         setState(() {
-                          selectedValue = value;
+                          selectedValue2 = value;
                         });
                       },
                       buttonStyleData: ButtonStyleData(
@@ -147,6 +149,24 @@ class _ValoresState extends State<Valores> {
                         padding: EdgeInsets.only(left: 14, right: 14),
                       ),
                     ),
+
+                    //PRIMEIRO EXEMPLO SEM CHAT
+                    /*ValueListenableBuilder(
+                      valueListenable: dropValue,
+                       builder: (BuildContext context, String value, _) {
+                        return DropdownButton(
+                          hint: const Text("Escolha a tributação"),
+                          //se o valor não for vazio vai mostrar o valor
+                          value: (value.isEmpty) ? null : value,
+                          onChanged: (escolha) => dropValue.value = escolha.toString(),
+                          items: dropValue.map((op) => DropdownMenuItem(
+                            value: op,
+                            child: Text(op)
+                            ))
+                            .toList(),
+                          );
+                       }),*/
+
                     const Padding(padding: EdgeInsets.all(10)),
 
                     //SEGUNDO DROPDOWN
@@ -197,8 +217,6 @@ class _ValoresState extends State<Valores> {
                       value: selectedValue,
                       //ONCHANGED É UM CALLBACK QUE É ACIONADO QUANDO A OPÇÃO DO DROPDOWN É SELECIONADA
                       onChanged: (String? value) {
-                        if (value == 'Tributação no município') {
-                        } else {}
                         //SETSTATE É PARA ATUALIZAR O ESTADO DO WIDGET ATUAL E RECONSTRUÍ-LO
                         setState(() {
                           selectedValue = value;

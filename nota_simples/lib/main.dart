@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:nota_simples/screens/Menu.dart';
 import 'package:nota_simples/screens/login.dart';
 
 void main() async {
