@@ -82,6 +82,8 @@ class _ClientesState extends State<Clientes> {
     }
   }*/
 
+  List<String> titular = [];
+
   Future<void> recuperarDados() async {
     //ENDPOINT
     String url = "https://invianf.com.br/ws/appNotaSimples/listarClientes.php";
@@ -113,6 +115,7 @@ class _ClientesState extends State<Clientes> {
       setState(() {
         results = resposta["Results"];
         debugPrint(results?[0]["User_id"].toString());
+        debugPrint(results?[0]["RazaoSocialTomador"].toString());
         //debugPrint("recuperar ${recuperarDados()}");
         //EasyLoading.dismiss();
       });
@@ -121,7 +124,7 @@ class _ClientesState extends State<Clientes> {
       //debugPrint("recuperar ${recuperarDados()}");
       //debugPrint("user_ID $_userId");
     } else {
-      debugPrint("NÃO SUCESSO");
+      debugPrint("NÃO SUCESSOs");
     }
   }
 
@@ -173,20 +176,19 @@ class _ClientesState extends State<Clientes> {
                   ElevatedButton(
                       onPressed: () {
                         setState(() {
-                          results!.sort((a1, b2) => b2["RazaoSocialTomador"]
-                              .toString()
-                              .toLowerCase()
-                              .compareTo(b2["RazaoSocialTomador"]
-                                  .toString()
-                                  .toLowerCase()));
+                          results!.sort((c, d) => d.toString().compareTo(c));
                         });
                       },
                       child: const Text("Z-A")),
-                  FloatingActionButton(
+                  ElevatedButton(
                     onPressed: () {
                       showSearch(context: context, delegate: CustomSearch());
                     },
-                    child: const Icon(Icons.search),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                          labelText: "Pesquisa CNPJ OU CPF",
+                          prefix: Icon(Icons.search)),
+                    ),
                   )
                 ],
               ),
@@ -270,18 +272,24 @@ class CustomSearch extends SearchDelegate {
   }
 
   @override
-  Widget buildResults(BuildContext context) {
+  /*Widget buildResults(BuildContext context) {
     List<String> matchQuery = [];
 
     for(var in var) {
       if()
     }
 
-  }
+  }*/
 
   @override
   Widget buildSuggestions(BuildContext context) {
     // TODO: implement buildSuggestions
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    // TODO: implement buildResults
     throw UnimplementedError();
   }
 }
