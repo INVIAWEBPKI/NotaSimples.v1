@@ -1,9 +1,9 @@
-/*import 'package:flutter/material.dart';
-import 'package:nota_simples/screens/teste.dart';
-import '../services/emitir_note.dart';
+/*import 'package:animated_floating_buttons/widgets/animated_floating_action_button.dart';
+import 'package:flutter/material.dart';
+import 'package:nota_simples/screens/login.dart';
+import 'package:nota_simples/widgets/configuracoes.dart';
 import '../widgets/menu_lateral.dart';
 import 'cadastrar_servico.dart';
-import 'homePage.dart';
 import 'list_customers.dart';
 
 class Menu extends StatefulWidget {
@@ -14,6 +14,30 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  Widget floatConfiguracao() {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const Configuracoes()));
+      },
+      heroTag: "btn1",
+      tooltip: 'First button',
+      child: const Icon(Icons.add),
+    );
+  }
+
+  Widget floatLogout() {
+    return FloatingActionButton(
+      onPressed: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (_) => const Login()));
+      },
+      heroTag: "btn2",
+      tooltip: 'Second button',
+      child: const Icon(Icons.edit),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +45,17 @@ class _MenuState extends State<Menu> {
       appBar: AppBar(
         title: const Text("Menu"),
         backgroundColor: Colors.orange,
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: AnimatedFloatingActionButton(
+            //Fab list
+            fabButtons: <Widget>[floatConfiguracao(), floatLogout()],
+            //key : key,
+            colorStartAnimation: const Color.fromARGB(255, 177, 132, 37),
+            colorEndAnimation: Colors.red,
+            animatedIconData: AnimatedIcons.menu_close //To principal button
+            ),
       ),
       body: SingleChildScrollView(
           child: Column(

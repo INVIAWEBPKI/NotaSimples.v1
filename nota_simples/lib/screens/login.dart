@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import 'package:nota_simples/main.dart';
+import 'package:nota_simples/screens/menu.dart';
 import 'package:nota_simples/screens/teste.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Menu.dart';
 
 class Login extends StatefulWidget {
   final String? senha;
@@ -72,11 +72,11 @@ class _LoginState extends State<Login> {
       prefs.setString("UserId", resposta["UserID"]);
 
       EasyLoading.dismiss();
+      // ignore: use_build_context_synchronously
       Navigator.push(
           context,
-          //
           MaterialPageRoute(
-            builder: ((context) => HomeScreen()),
+            builder: ((_) => HomeScreen()),
           ));
     } else {
       {
