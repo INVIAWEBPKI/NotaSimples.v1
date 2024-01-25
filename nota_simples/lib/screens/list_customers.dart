@@ -180,11 +180,7 @@ class _ClientesState extends State<Clientes> {
                         });
                       },
                       child: const Text("Z-A")),
-<<<<<<< Updated upstream
-                  FloatingActionButton(
-=======
-                  /*ElevatedButton(
->>>>>>> Stashed changes
+                  ElevatedButton(
                     onPressed: () {
                       showSearch(context: context, delegate: CustomSearch());
                     },
